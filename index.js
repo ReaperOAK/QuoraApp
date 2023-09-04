@@ -2,15 +2,16 @@ const express = require("express");
 const app = express();
 const port = 8080;
 const path = require("path");
+const { v4 : uuidv4 } = require('uuid');
 
 const posts=[
     {
-        id : "1a",
+        id : uuidv4(),
         username:"Owais",
         content:"yay, I learned to work with servers and APIs"
     },
     {
-        id : "2b",
+        id : uuidv4(),
         username:"Aftab",
         content:"Party was fun"
     }
@@ -36,7 +37,8 @@ app.get("/posts/:id",(req,res)=>{
 })
 app.post("/posts",(req,res)=>{
     let {username,content}=req.body;
-    posts.push({username,content});
+    let id = uuidv4()
+    posts.push({id,username,content});
     res.redirect("/posts");
 })
 
