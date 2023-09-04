@@ -41,6 +41,18 @@ app.post("/posts",(req,res)=>{
     posts.push({id,username,content});
     res.redirect("/posts");
 })
+app.patch("/posts/:id",(req,res)=>{
+    let {id} = req.params;
+    let newContent = req.body.content;
+    let post = posts.find((p) => id === p.id);
+    post.content = newContent;
+})
+app.get("/posts/:id/edit",(req,res)=>{
+    let {id} = req.params;
+    let post = posts.find((p) => id === p.id);
+    res.render("edit.ejs",{post});
+})
+
 
 app.listen(port,()=>{
     console.log(`Listening to port ${port}`);
